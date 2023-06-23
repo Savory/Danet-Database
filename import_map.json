@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "danet/": "https://deno.land/x/danet/"
+  }
+}
