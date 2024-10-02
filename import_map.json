@@ -1,5 +1,6 @@
 {
   "imports": {
-    "danet/": "https://deno.land/x/danet/"
+    "@danet/core": "jsr:@danet/core@2",
+    "@db/mongo": "jsr:@db/mongo"
   }
 }

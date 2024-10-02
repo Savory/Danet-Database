@@ -1,12 +1,9 @@
-import { Repository } from '../repository.ts';
-import { Filter, ObjectId } from 'mongo/mod.ts';
-import { MongodbService } from './service.ts';
+import type { Repository } from '../repository.ts';
+import { type Filter, ObjectId, type Document, type Collection } from '@db/mongo';
+import type { MongodbService } from './service.ts';
 
-interface Document {
-  _id: string | ObjectId;
-}
 
-export abstract class MongodbRepository<T extends Document>
+export abstract class MongodbRepository<T extends Document & { _id: string | ObjectId}>
   implements Repository<T> {
   constructor(
     protected dbService: MongodbService,
@@ -20,7 +17,7 @@ export abstract class MongodbRepository<T extends Document>
       .toArray()).map((obj) => ({ ...obj, _id: obj._id.toString() }));
   }
 
-  async getOne(filter: Filter<T>) {
+  async getOne(filter: Filter<T>): Promise<T> {
     const obj = await this.dbService.getCollection<T>(this.collectionName)
       .findOne(filter);
     if (!obj) return undefined;
@@ -30,7 +27,7 @@ export abstract class MongodbRepository<T extends Document>
     };
   }
 
-  async getById(id: string) {
+  async getById(id: string): Promise<T> {
     const obj = await this.dbService.getCollection<T>(this.collectionName)
       .findOne({
         _id: new ObjectId(id),
@@ -42,7 +39,7 @@ export abstract class MongodbRepository<T extends Document>
     };
   }
 
-  async create(obj: T) {
+  async create(obj: T): Promise<T> {
     obj._id = new ObjectId();
     await this.dbService.getCollection<T>(
       this.collectionName,
@@ -50,7 +47,7 @@ export abstract class MongodbRepository<T extends Document>
     return obj;
   }
 
-  async updateOne(objId: string, obj: Partial<T>) {
+  async updateOne(objId: string, obj: Partial<T>): Promise<ReturnType<Collection<T>["updateOne"]>> {
     const _id = new ObjectId(objId);
     const updated = await this.dbService.getCollection<T>(this.collectionName)
       .updateOne(
@@ -62,13 +59,13 @@ export abstract class MongodbRepository<T extends Document>
     return updated;
   }
 
-  async deleteOne(objId: string) {
+  deleteOne(objId: string): Promise<number> {
     return this.dbService.getCollection<T>(this.collectionName).deleteOne({
       _id: new ObjectId(objId),
     });
   }
 
-  async deleteAll() {
+  deleteAll(): Promise<number> {
     return this.dbService.getCollection<T>(this.collectionName).deleteMany({});
   }
 }

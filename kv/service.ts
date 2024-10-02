@@ -1,5 +1,5 @@
-import { Injectable } from 'danet/mod.ts';
-import { OnAppBootstrap, OnAppClose } from 'danet/src/hook/interfaces.ts';
+import { Injectable } from '@danet/core';
+import type { OnAppBootstrap, OnAppClose } from '@danet/core/hook';
 
 @Injectable()
 export class KvService implements OnAppBootstrap, OnAppClose {
@@ -11,7 +11,7 @@ export class KvService implements OnAppBootstrap, OnAppClose {
     this.kvClient = await Deno.openKv();
   }
 
-  client() {
+  client(): Deno.Kv {
     return this.kvClient;
   }
 

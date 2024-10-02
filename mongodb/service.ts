@@ -1,6 +1,6 @@
-import { Injectable } from 'danet/mod.ts';
-import { OnAppBootstrap, OnAppClose } from 'danet/src/hook/interfaces.ts';
-import { Collection, Database, Document, MongoClient } from 'mongo/mod.ts';
+import { Injectable } from '@danet/core';
+import type { OnAppBootstrap, OnAppClose } from '@danet/core/hook';
+import { type Collection, type Database, type Document, MongoClient } from '@db/mongo';
 
 @Injectable()
 export class MongodbService implements OnAppBootstrap, OnAppClose {

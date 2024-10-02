@@ -1,4 +1,4 @@
-import { Module } from 'danet/mod.ts';
+import { Module } from '@danet/core';
 import { KvService } from "./service.ts";
 
 @Module({

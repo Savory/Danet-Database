@@ -1,6 +1,6 @@
 
-import { KvService } from "./service.ts";
-import { Repository } from "../repository.ts";
+import type { KvService } from "./service.ts";
+import type { Repository } from "../repository.ts";
 
 export abstract class KvRepository<T extends { _id: string }>
   implements Repository<T> {
@@ -19,7 +19,7 @@ export abstract class KvRepository<T extends { _id: string }>
     return items;
   }
 
-  async getById(id: string) {
+  async getById(id: string): Promise<T|undefined> {
     if (!id) {
       return undefined;
     }
@@ -60,7 +60,7 @@ export abstract class KvRepository<T extends { _id: string }>
     await transaction
       .commit();
   }
-  async updateOne(itemId: string, item: T) {
+  async updateOne(itemId: string, item: T): Promise<T> {
     const itemInDb = await this.kv.client().get([this.collectionName, itemId]);
     const itemToInsert = {
       ...itemInDb,
@@ -76,7 +76,7 @@ export abstract class KvRepository<T extends { _id: string }>
     if (!transactionResult.ok) {
       throw new Error("Could update entity");
     }
-    return item;
+    return itemToInsert;
   }
 
   async deleteAll() {

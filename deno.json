@@ -1,4 +1,21 @@
 {
+  "name": "@danet/database",
+  "version": "0.0.1",
+  "exports": {
+    "./mongodb/module.ts": "./mongodb/module.ts",
+    "./mongodb/repository.ts": "./mongodb/repository.ts",
+    "./mongodb/service.ts": "./mongodb/service.ts",
+    "./repository.ts": "./repository.ts",
+    "./kv/module.ts": "./kv/module.ts",
+    "./kv/repository.ts": "./kv/repository.ts",
+    "./kv/service.ts": "./kv/service.ts",
+    "./import_map.json": "./import_map.json",
+    "./deno.json": "./deno.json"
+  },
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
   "lock": false,
   "importMap": "./import_map.json"
 }
