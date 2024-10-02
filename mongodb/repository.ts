@@ -17,7 +17,7 @@ export abstract class MongodbRepository<T extends Document & { _id: string | Obj
       .toArray()).map((obj) => ({ ...obj, _id: obj._id.toString() }));
   }
 
-  async getOne(filter: Filter<T>): Promise<T> {
+  async getOne(filter: Filter<T>): Promise<T | undefined> {
     const obj = await this.dbService.getCollection<T>(this.collectionName)
       .findOne(filter);
     if (!obj) return undefined;
@@ -27,11 +27,12 @@ export abstract class MongodbRepository<T extends Document & { _id: string | Obj
     };
   }
 
-  async getById(id: string): Promise<T> {
+  async getById(id: string): Promise<T | undefined> {
     const obj = await this.dbService.getCollection<T>(this.collectionName)
-      .findOne({
+      .findOne({        
+        // deno-lint-ignore no-explicit-any
         _id: new ObjectId(id),
-      });
+      } as any);
     if (!obj) return undefined;
     return {
       ...obj,
@@ -61,8 +62,9 @@ export abstract class MongodbRepository<T extends Document & { _id: string | Obj
 
   deleteOne(objId: string): Promise<number> {
     return this.dbService.getCollection<T>(this.collectionName).deleteOne({
-      _id: new ObjectId(objId),
-    });
+      _id: new ObjectId(objId)
+        // deno-lint-ignore no-explicit-any
+    } as any);
   }
 
   deleteAll(): Promise<number> {
