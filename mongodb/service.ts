@@ -3,6 +3,11 @@ import type { OnAppBootstrap, OnAppClose } from '@danet/core/hook';
 import { type Collection, type Database, type Document, MongoClient } from '@db/mongo';
 
 @Injectable()
+/**
+ * Connect to a mongoDB database using the `mongo` driver.
+ * It implements the `OnAppBootstrap` and `OnAppClose` interfaces to manage
+ * the lifecycle of the database connection.
+ */
 export class MongodbService implements OnAppBootstrap, OnAppClose {
   constructor() {}
 

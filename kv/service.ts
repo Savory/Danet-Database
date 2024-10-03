@@ -2,6 +2,14 @@ import { Injectable } from '@danet/core';
 import type { OnAppBootstrap, OnAppClose } from '@danet/core/hook';
 
 @Injectable()
+/**
+ * KvService is a service class that manages a Deno.Kv client.
+ * It implements the OnAppBootstrap and OnAppClose interfaces to handle
+ * initialization and cleanup of the Kv client.
+ *
+ * @implements {OnAppBootstrap}
+ * @implements {OnAppClose}
+ */
 export class KvService implements OnAppBootstrap, OnAppClose {
   constructor() {}
 

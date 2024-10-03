@@ -1,3 +1,13 @@
+/**
+ * @module
+ * Expose Repository interface
+ */
+
+/**
+ * Interface representing a generic repository for managing entities of type `T`.
+ *
+ * @template T - The type of the entity managed by the repository.
+ */
 export interface Repository<T extends unknown> {
   getAll(): Promise<T[]>;
   getById(id: string): Promise<T | undefined>;

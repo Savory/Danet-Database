@@ -1,14 +1,10 @@
 {
   "name": "@danet/database",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "exports": {
-    "./mongodb/module": "./mongodb/module.ts",
-    "./mongodb/repository": "./mongodb/repository.ts",
-    "./mongodb/service": "./mongodb/service.ts",
+    "./mongodb": "./mongodb/mod.ts",
     "./repository": "./repository.ts",
-    "./kv/module": "./kv/module.ts",
-    "./kv/repository": "./kv/repository.ts",
-    "./kv/service": "./kv/service.ts"
+    "./kv": "./kv/mod.ts"
   },
   "compilerOptions": {
     "emitDecoratorMetadata": true,
