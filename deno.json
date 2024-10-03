@@ -1,6 +1,6 @@
 {
   "name": "@danet/database",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "exports": {
     "./mongodb": "./mongodb/mod.ts",
     "./repository": "./repository.ts",
